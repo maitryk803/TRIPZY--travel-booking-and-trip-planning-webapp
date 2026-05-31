@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tripzy — Plan, Book & Explore Your Next Trip</title>
+  <meta name="description" content="Tripzy helps you discover destinations, book hotels, plan trips and manage your travel budget — all in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">
+        <span class="logo-mark">✈</span>
+        <span>Trip<span class="accent">zy</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#destinations">Destinations</a>
+        <a href="#hotels">Hotels</a>
+        <a href="#planner">Trip Planner</a>
+        <a href="#budget">Budget</a>
+        <a href="#favorites">Favorites</a>
+      </nav>
+      <button class="btn btn-primary nav-cta" onclick="scrollToId('destinations')">Explore</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="container hero-inner">
+      <span class="badge">🌍 Plan smarter. Travel better.</span>
+      <h1>Discover the world with <span class="grad">Tripzy</span></h1>
+      <p class="hero-sub">Search destinations, compare hotels, plan day‑by‑day itineraries and track your budget — all in one clean dashboard.</p>
+
+      <div class="search-card">
+        <div class="search-field">
+          <label>Destination</label>
+          <input type="text" id="heroSearch" placeholder="e.g. Paris, Bali, Tokyo" />
+        </div>
+        <div class="search-field">
+          <label>Check‑in</label>
+          <input type="date" id="heroDate" />
+        </div>
+        <div class="search-field">
+          <label>Travelers</label>
+          <select id="heroGuests">
+            <option>1 Traveler</option>
+            <option>2 Travelers</option>
+            <option>3 Travelers</option>
+            <option>4+ Travelers</option>
+          </select>
+        </div>
+        <button class="btn btn-primary search-btn" onclick="runHeroSearch()">Search</button>
+      </div>
+
+      <div class="hero-stats">
+        <div><strong>120+</strong><span>Destinations</span></div>
+        <div><strong>5k+</strong><span>Hotels</span></div>
+        <div><strong>98%</strong><span>Happy Travelers</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DESTINATIONS ============ -->
+  <section class="section" id="destinations">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Popular Destinations</h2>
+          <p class="muted">Hand‑picked cities loved by travelers around the world.</p>
+        </div>
+        <input type="text" id="destSearch" class="inline-search" placeholder="🔎 Search destinations..." />
+      </div>
+      <div class="grid grid-3" id="destGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ HOTELS ============ -->
+  <section class="section alt" id="hotels">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Top Rated Hotels</h2>
+          <p class="muted">Comfort, style and great value — filtered for you.</p>
+        </div>
+        <select id="hotelFilter" class="inline-search">
+          <option value="all">All Hotels</option>
+          <option value="budget">Budget (&lt; $100)</option>
+          <option value="mid">Mid Range ($100 – $250)</option>
+          <option value="luxury">Luxury ($250+)</option>
+        </select>
+      </div>
+      <div class="grid grid-3" id="hotelGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ TRIP PLANNER ============ -->
+  <section class="section" id="planner">
+    <div class="container">
+      <div class="section-head">
+        <h2>Trip Planner</h2>
+      </div>
+      <div class="planner-wrap">
+        <form class="planner-form card" id="plannerForm">
+          <h3>Add Activity</h3>
+          <label>Day</label>
+          <input type="number" id="planDay" min="1" value="1" required />
+          <label>Activity</label>
+          <input type="text" id="planActivity" placeholder="Visit Eiffel Tower" required />
+          <label>Location</label>
+          <input type="text" id="planLocation" placeholder="Paris, France" />
+          <label>Estimated Cost ($)</label>
+          <input type="number" id="planCost" min="0" value="0" />
+          <button class="btn btn-primary" type="submit">+ Add to Itinerary</button>
+        </form>
+        <div class="itinerary card">
+          <h3>Your Itinerary</h3>
+          <div id="itineraryList" class="itinerary-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUDGET ============ -->
+  <section class="section alt" id="budget">
+    <div class="container">
+      <div class="section-head"><h2>Budget Estimator</h2></div>
+      <div class="budget-wrap">
+        <div class="card budget-form">
+          <label>Trip Budget ($)</label>
+          <input type="number" id="totalBudget" placeholder="2000" min="0" />
+          <label>Number of Days</label>
+          <input type="number" id="tripDays" placeholder="7" min="1" />
+          <label>Travelers</label>
+          <input type="number" id="tripTravelers" placeholder="2" min="1" />
+          <button class="btn btn-primary" onclick="estimateBudget()">Estimate</button>
+        </div>
+        <div class="card budget-result" id="budgetResult">
+          <h3>Smart Breakdown</h3>
+          <p class="muted">Enter your details to see an estimated daily, per‑person and category split.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAVORITES ============ -->
+  <section class="section" id="favorites">
+    <div class="container">
+      <div class="section-head"><h2>Your Favorites ❤️</h2></div>
+      <div class="grid grid-3" id="favGrid"></div>
+      <p id="favEmpty" class="muted" style="text-align:center;">No favorites yet — tap the heart icon on any destination or hotel.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark">✈</span> Trip<span class="accent">zy</span></div>
+        <p class="muted">Plan, book and explore — the modern way.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Help Center</a><a href="#">Privacy</a><a href="#">Terms</a>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <a href="#">Instagram</a><a href="#">Twitter</a><a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 Tripzy. Crafted for curious travelers.</div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

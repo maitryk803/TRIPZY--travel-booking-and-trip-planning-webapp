@@ -13,10 +13,7 @@ TRIPZY is a beginner-friendly travel booking and trip planning web application b
 - 💰 Budget estimation feature
 - ❤️ Save and manage favorite destinations
 - 📱 Responsive and modern user interface
-
-## screenshots
-![home page](screenshot675.png)
-
+  
 ## 🏠 Home Page
 
 The homepage provides a travel search experience where users can:
